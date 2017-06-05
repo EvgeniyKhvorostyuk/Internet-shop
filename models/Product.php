@@ -79,6 +79,7 @@ class Product
         }
         return $products;
     }
+    
 
     public static function getProductById($id)
     {
