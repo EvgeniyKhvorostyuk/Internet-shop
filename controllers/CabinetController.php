@@ -26,12 +26,14 @@ class CabinetController
         $user = User::getUserById($userId);
         
         $username = $user['username'];
+        $email = $user['email'];
         $password = $user['password'];
                 
         $result = false;     
 
         if (isset($_POST['submit'])) {
             $username = $_POST['username'];
+            $email = $_POST['email'];
             $password = $_POST['password'];
             
             $errors = false;
@@ -39,13 +41,23 @@ class CabinetController
             if (!User::checkName($username)) {
                 $errors[] = 'Имя не должно быть короче 2-х символов';
             }
+            if (!User::checkEmail($email)) {
+                $errors[] = 'Неправильный email';
+            }
+        
+            if (User::checkEmailExists($email)) {
+                $errors[] = 'Такой email уже используется';
+            }
+            if (User::checkUsernameExists($username)) {
+                $errors[] = 'Такое имя уже используется';
+            }
             
             if (!User::checkPassword($password)) {
                 $errors[] = 'Пароль не должен быть короче 6-ти символов';
             }
             
             if ($errors == false) {
-                $result = User::edit($userId, $username, $password);
+                $result = User::edit($userId, $username, $email, $password);
             }
 
         }

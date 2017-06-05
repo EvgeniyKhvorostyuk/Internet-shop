@@ -20,17 +20,18 @@ class User
     }
 
 
-    public static function edit($id, $username, $password)
+    public static function edit($id, $username, $email, $password)
     {
         $db = Db::getConnection();
         
         $sql = "UPDATE user 
-            SET username = :username, password = :password 
+            SET username = :username, email = :email, password = :password 
             WHERE id = :id";
         
         $result = $db->prepare($sql);                                  
         $result->bindParam(':id', $id, PDO::PARAM_INT);       
         $result->bindParam(':username', $username, PDO::PARAM_STR);    
+        $result->bindParam(':email', $email, PDO::PARAM_STR);    
         $result->bindParam(':password', $password, PDO::PARAM_STR); 
         return $result->execute();
     }

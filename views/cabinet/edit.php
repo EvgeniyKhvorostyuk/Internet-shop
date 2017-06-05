@@ -21,10 +21,11 @@
                         <h2>Редактирование данных</h2>
                         <form action="#" method="post">
                             <p>Имя:</p>
-                            <input type="text" name="username" placeholder="Имя" value="<?php echo $username; ?>"/>
-                            
+                            <input type="text" name="username" value="<?php echo $username; ?>"/>
+                            <p>Email:</p>
+                            <input type="text" name="email" value="<?php echo $email; ?>"/>
                             <p>Пароль:</p>
-                            <input type="password" name="password" placeholder="Пароль" value="<?php echo $password; ?>"/>
+                            <input type="password" name="password" required>
                             <br/>
                             <input type="submit" name="submit" class="btn btn-default" value="Сохранить" />
                         </form>
