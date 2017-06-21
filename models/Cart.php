@@ -24,6 +24,9 @@ class Cart
 		}
 
 		$_SESSION['products'] = $productsInCart;
+
+		//возвращаем количество товаров
+		return self::countItems();
 	}
 
 	//счетчик товаров в корзине(сессии)
