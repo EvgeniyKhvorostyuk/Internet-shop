@@ -46,4 +46,34 @@ class Cart
 			return 0;
 		}
 	}
+
+	// если есть товары - возвращаем их
+	public static function getProducts()
+	{
+
+		if (isset($_SESSION['products'])) {
+
+			return $_SESSION['products'];
+		}
+
+		return false;
+	}
+
+
+	public static function getTotalPrice($products)
+	{
+		$productsInCart = self::getProducts();
+
+		$total = 0;
+
+		//усли есть товары в корзине(сессии)
+		if ($productsInCart) {
+
+			foreach ($products as $item) {
+				$total += $item['price'] * $productsInCart[$item['id']];
+			}
+		}
+
+		return $total;
+	}
 }
