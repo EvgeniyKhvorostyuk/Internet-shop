@@ -76,4 +76,11 @@ class Cart
 
 		return $total;
 	}
+
+	public static function clearCart()
+	{
+		if (isset($_SESSION['products'])) {
+			unset($_SESSION['products']);
+		}
+	}
 }

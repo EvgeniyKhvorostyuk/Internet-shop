@@ -106,6 +106,14 @@ class User
         return false;
     }
 
+    public static function checkPhone($phone)
+    {
+        if (strlen($phone) >= 10) {
+            return true;
+        }
+        return false;
+    }
+
     public static function checkEmailExists($email)
     {
 
