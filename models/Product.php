@@ -24,7 +24,7 @@ class Product
         // Указываем, что хотим получить данные в виде массива
         $result->setFetchMode(PDO::FETCH_ASSOC);
         
-        // Выполнение коменды
+        // Выполнение комaнды
         $result->execute();
         
         // Получение и возврат результатов
@@ -41,6 +41,36 @@ class Product
         
         }
         return $productsList;
+    }
+
+    public static function getRecommendedProducts()
+    {
+        $db = Db::getConnection();
+
+        $sql = 'SELECT id, name, price, is_new FROM product WHERE status = "1" AND is_recommended = "1" ORDER BY name DESC';
+
+        $result = $db->prepare($sql);
+
+        // Указываем, что хотим получить данные в виде массива
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        
+        // Выполнение комaнды
+        $result->execute();
+        
+        // Получение и возврат результатов
+        $i = 0;
+        
+        $recProductsList = array();
+        
+        while ($row = $result->fetch()) {
+            $recProductsList[$i]['id'] = $row['id'];
+            $recProductsList[$i]['name'] = $row['name'];
+            $recProductsList[$i]['price'] = $row['price'];
+            $recProductsList[$i]['is_new'] = $row['is_new'];
+            $i++;
+        
+        }
+        return $recProductsList;
     }
 
     public static function getProductsListByCategory($categoryId, $page = 1)
