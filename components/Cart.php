@@ -29,6 +29,28 @@ class Cart
 		return self::countItems();
 	}
 
+	public static function deleteProduct($id)
+	{
+		// Получаем массив с идентификаторами и количеством товаров в корзине
+        $productsInCart = self::getProducts();
+
+        if (array_key_exists($id, $productsInCart) && $productsInCart[$id] > 1) {
+
+        	$productsInCart[$id] --;
+
+        } elseif (array_key_exists($id, $productsInCart) && $productsInCart[$id] == 1) {
+        
+        // Удаляем из массива элемент с указанным id
+        unset($productsInCart[$id]);
+
+        }
+        
+        // Записываем массив товаров с удаленным элементом в сессию
+        $_SESSION['products'] = $productsInCart;
+
+		return self::countItems();
+	}
+
 	//счетчик товаров в корзине(сессии)
 	public static function countItems()
 	{
