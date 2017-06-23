@@ -88,7 +88,7 @@ class AdminProductController extends AdminBase
             $options['status'] = $_POST['status'];
 
             //save changes
-            if (Product::updateProductById($is, $options)) {
+            if (Product::updateProductById($id, $options)) {
 
             	// Проверим, загружалось ли через форму изображение
                 if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
