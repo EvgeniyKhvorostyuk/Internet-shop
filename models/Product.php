@@ -181,5 +181,40 @@ class Product
         return $products;
     }
 
+    public static function getProductsList()
+    {
+        $db = Db::getConnection();
+
+        $sql = 'SELECT id, name, code, price FROM product ORDER BY id ASC';
+
+        $result = $db->prepare($sql);
+
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
+
+        $productsList = array();
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $productsList[$i]['id'] = $row['id'];
+            $productsList[$i]['name'] = $row['name'];
+            $productsList[$i]['code'] = $row['code'];
+            $productsList[$i]['price'] = $row['price'];
+            $i++;
+        }
+
+        return $productsList;
+    }
+
+    public static function deleteProductById($id)
+    {
+        $db = Db::getConnection();
+
+        $sql = 'DELETE FROM product WHERE id = :id';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        return $result->execute();
+    }
+
 
 }
