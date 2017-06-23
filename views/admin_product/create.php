@@ -60,7 +60,7 @@
                         <input type="file" name="image" placeholder="" value="">
 
                         <p>Детальное описание</p>
-                        <textarea name="description"></textarea>
+                        <textarea name="description" cols="10" rows="7"></textarea>
 
                         <br/><br/>
 
