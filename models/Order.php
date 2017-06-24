@@ -87,5 +87,41 @@ class Order
         return $result->fetch();
     }
 
-    
+    public static function updateOrderById($id, $userName, $userPhone, $userComment, $date, $status)
+    {
+    	$db = Db::getConnection();
+
+    	        $sql = "UPDATE orders
+            		SET 
+		                user_name = :user_name, 
+		                user_phone = :user_phone, 
+		                user_comment = :user_comment, 
+		                date = :date, 
+		                status = :status 
+            		WHERE id = :id";
+        
+        $result = $db->prepare($sql);
+        
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':user_name', $userName, PDO::PARAM_STR);
+        $result->bindParam(':user_phone', $userPhone, PDO::PARAM_STR);
+        $result->bindParam(':user_comment', $userComment, PDO::PARAM_STR);
+        $result->bindParam(':date', $date, PDO::PARAM_STR);
+        $result->bindParam(':status', $status, PDO::PARAM_INT);
+        
+        return $result->execute();
+    }
+
+    public static function deleteOrderById($id)
+    {
+        
+        $db = Db::getConnection();
+        
+        $sql = 'DELETE FROM orders WHERE id = :id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        
+        return $result->execute();
+    }
 } 
