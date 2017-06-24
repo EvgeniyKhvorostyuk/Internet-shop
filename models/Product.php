@@ -302,4 +302,16 @@ class Product
         return $path . $noImage;
     }
 
+    public static function getAvailabilityText($availability)
+    {
+        switch ($availability) {
+            case '1':
+                return 'В наличии';
+                break;
+            case '0':
+                return 'Под заказ';
+                break;
+        }
+    }
+
 }
