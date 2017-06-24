@@ -79,4 +79,36 @@ class Category
             break;
         }
     }
+
+    public static function getCategoryById($id)
+    {
+        $db = Db::getConnection();
+
+        $sql = 'SELECT * FROM category WHERE id = :id ';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+
+        $result->execute();
+
+        return $result->fetch();
+    }
+
+    public static function updateCategoryById($id, $name, $sort_order, $status)
+    {
+        $db = Db::getConnection();
+
+        $sql = 'UPDATE category SET name = :name, sort_order = :sort_order, status = :status  WHERE id = :id';
+
+        $result = $db->prepare($sql);
+
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':name', $name, PDO::PARAM_STR); 
+        $result->bindParam(':sort_order', $sort_order, PDO::PARAM_INT); 
+        $result->bindParam(':status', $status, PDO::PARAM_INT); 
+
+        return $result->execute();
+    }
 }

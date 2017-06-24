@@ -41,4 +41,27 @@ class AdminCategoryController extends AdminBase
 
 		return true;
 	}
+
+	public function actionUpdate($id)
+	{
+		self::checkAdmin();
+
+		$category = Category::getCategoryById($id);
+
+		if(isset($_POST['submit'])) {
+
+			$name = $_POST['name'];
+			$sort_order = $_POST['sort_order'];
+			$status = $_POST['status'];
+
+			Category::updateCategoryById($id, $name, $sort_order, $status);
+
+			header('Location: /admin/category');
+		}
+
+		require_once(ROOT . '/views/admin_category/update.php');
+
+		return true;
+
+	}
 }
