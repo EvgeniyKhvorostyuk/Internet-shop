@@ -111,4 +111,16 @@ class Category
 
         return $result->execute();
     }
+
+    public static function deleteCategoryById($id)
+    {
+        $db = Db::getConnection();
+
+        $sql = 'DELETE FROM category WHERE id = :id';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+
+        return $result->execute();
+    }
 }
