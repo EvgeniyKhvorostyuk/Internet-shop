@@ -50,4 +50,33 @@ class Category
         
         return $categoryList;
     }
+
+    public static function createCategory($name, $sort_order, $status)
+    {
+        // Соединение с БД
+        $db = Db::getConnection();
+
+        // Запрос к БД
+        $sql = 'INSERT INTO category (name, sort_order, status) VALUES (:name, :sort_order, :status)';
+        
+        $result = $db->prepare($sql);
+
+        $result->bindParam(':name', $name, PDO::PARAM_STR);
+        $result->bindParam(':sort_order', $sort_order, PDO::PARAM_INT);
+        $result->bindParam(':status', $status, PDO::PARAM_INT);
+
+        return $result->execute();
+    }
+
+    public static function getStatusText($status)
+    {
+        switch ($status) {
+            case '1':
+            return 'Отображается';
+            break;
+            case '0':
+            return 'Скрыта';
+            break;
+        }
+    }
 }
